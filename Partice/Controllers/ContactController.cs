@@ -1,9 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Partice.Models;
+using System.Threading.Tasks;
+
 
 namespace Partice.Controllers
 {
@@ -11,11 +13,13 @@ namespace Partice.Controllers
     {
         private DataContext context = new DataContext();
         // GET: Contact
-        public ActionResult Index()
+        public ActionResult Index(string searching)
         {
-            var list = context.Contacts.ToList();
-            return View(list);
+            
+            return View(context.Contacts.Where(x => x.ContactName.Contains(searching)||searching==null).ToList());
         }
+        [HttpGet]
+      
         public ActionResult Create()
         {
             return View();
